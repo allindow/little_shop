@@ -1,14 +1,15 @@
-<%= form_for(target, url: path) do |f|  %>
+<div class="well">
+  <%= form_for(target, url: path) do |f|  %>
   <p>
     <%= f.label :username %>
     <%= f.text_field :username, class: 'entry' %>
   </p>
   <%  %>
   <% if new_user_path? || admin_edit? %>
-    <p>
-      <%= f.label :email %>
-      <%= f.text_field :email, class: 'entry' %>
-    </p>
+  <p>
+    <%= f.label :email %>
+    <%= f.text_field :email, class: 'entry' %>
+  </p>
   <% end %>
   <p>
     <%= f.label :password %>
@@ -18,4 +19,5 @@
   <center>
     <%= f.submit button, class: "center_button btn btn-#{btn_class}"%>
   </center>
-<% end %>
+  <% end %>  
+</div>
