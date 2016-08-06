@@ -1,17 +1,26 @@
 Rails.application.routes.draw do
   root to: 'home#index'
-  namespace :admin do
-    resources :dashboard, only: [:index]
-    resources :items, only: [:new, :create, :edit, :update]
-  end
-  resources :cart_items, only: [:create, :update, :destroy]
-  resources :cart, only: [:index]
-  resources :items, only: [:index, :show] do
-    get 'unavailable', on: :collection
-  end
-  resources :users, only: [:new, :create, :edit, :update]
-  resources :orders, only: [:index, :create, :show]
-  resources :charges
+  get '/admin/dashboard', to: 'admin/dashboard#index', as: 'admin_dashboard_index'
+  get '/admin/items/new', to: 'admin/items#new', as: 'new_admin_item'
+  post '/admin/items', to: 'admin/items#create', as: 'admin_items'
+  get '/admin/items/:id/edit', to: 'admin/items#edit', as: 'edit_admin_item'
+  patch '/admin/items/:id', to: 'admin/items#update', as: 'admin_item'
+  post '/cart_items', to: 'cart_items#create'
+  patch '/cart_item/:id', to: 'cart_items#update', as: 'cart_item'
+  delete '/cart_item/:id', to: 'cart_items#destroy'
+  get '/cart', to: 'cart#index', as: 'cart_index'
+  get '/items', to: 'items#index'
+  get '/items/unavailable', to: 'items#unavailable', as: 'unavailable_items'
+  get '/items/:id', to: 'items#show', as: 'item'
+  get '/users/new', to: 'users#new', as: 'new_user'
+  post '/users', to: 'users#create'
+  get '/users/:id/edit', to: 'users#edit', as: 'edit_user'
+  patch '/users/:id', to: 'users#update', as: 'user'
+  get '/orders', to: 'orders#index'
+  post '/orders', to: 'orders#create'
+  get '/orders/:id', to: 'orders#show', as: 'order'
+  get '/charges/new', to: 'charges#new', as: 'new_charge'
+  post '/charges', to: 'charges#create'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
